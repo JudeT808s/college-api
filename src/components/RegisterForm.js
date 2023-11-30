@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 
-const LoginForm = ({ authenticated, onAuthenticated }) => {
+const RegisterForm = ({ authenticated, onAuthenticated }) => {
 
     const errorStyle = {
         color: 'red'
@@ -9,6 +9,7 @@ const LoginForm = ({ authenticated, onAuthenticated }) => {
 
     const [errorMessage, setErrorMessage] = useState("");
     const [form, setForm] = useState({
+        name: "joe",
         email: "test@test.com",
         password: "Secret123"
     });
@@ -16,7 +17,8 @@ const LoginForm = ({ authenticated, onAuthenticated }) => {
     const handleClick = () => {
         console.log("clicked");
 
-        axios.post('https://college-api.vercel.app/login', {
+        axios.post('https://college-api.vercel.app/register', {
+            name: form.name,
             email: form.email,
             password: form.password
         })
@@ -41,7 +43,7 @@ const LoginForm = ({ authenticated, onAuthenticated }) => {
 
     return (
         <>
-            This is login Form
+            Name: <input onChange={handleForm} type="text" name="name" value={form.name} /> <br />
             Email: <input onChange={handleForm} type="text" name="email" value={form.email} /> <br />
             Password: <input onChange={handleForm} type="password" name="password" value={form.password} />
 
@@ -51,4 +53,4 @@ const LoginForm = ({ authenticated, onAuthenticated }) => {
     );
 };
 
-export default LoginForm;
+export default RegisterForm;
