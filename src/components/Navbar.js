@@ -10,6 +10,8 @@ const Navbar = ({authenticated, onAuthenticated}) => {
         <>
             <Link to="/">Home</Link>
             {(authenticated)? (<button onClick= {() => onAuthenticated(false)}>Logout</button>) : ""}
+            <Link to="/courses/create">Create</Link>
+            {(authenticated)? (<button onClick= {() => onAuthenticated(false)}>Create</button>) : ""}
         </>
     )
 }

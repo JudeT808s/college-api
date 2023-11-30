@@ -1,75 +1,28 @@
-import React, { useState } from 'react';
+import CreateForm from '../../components/CreateForm'
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-
-const Create = () => {
-  const { id } = useParams();
-  const [enrolmentData, setEnrolmentData] = useState({
-    studentName: '',
-    courseCode: '',
-    // Add more properties as needed
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEnrolmentData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Make a POST request to add enrolment
-      const response = await axios.post(
-        `https://college-api.vercel.app/courses`,
-        enrolmentData
-      );
-
-      console.log('Enrolment added:', response.data);
-
-      // Clear the form or update the UI as needed
-      setEnrolmentData({
-        studentName: '',
-        courseCode: '',
-        // Add more properties as needed
-      });
-    } catch (error) {
-      console.error('Error adding enrolment:', error);
-    }
-  };
-
-  return (
-    <div>
-      <h3>Add Enrolment to Course {id}</h3>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Student Name:
-          <input
-            type="text"
-            name="studentName"
-            value={enrolmentData.studentName}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Course Code:
-          <input
-            type="text"
-            name="courseCode"
-            value={enrolmentData.courseCode}
-            onChange={handleChange}
-          />
-        </label>
-        {/* Add more input fields for other enrolment properties */}
-        <br />
-        <button type="submit">Add Enrolment</button>
-      </form>
-    </div>
-  );
-};
-
-export default Create;
+import { useState , useEffect} from 'react';
+const Create = ({authenticated}) => {
+    const [course,setCourse] = useState([])
+    useEffect(() => {
+        let token = localStorage.getItem('token');
+        // Change this to a default domain to simplify soon
+        axios.post(`https://college-api.vercel.app/courses`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+          .then(response => {
+            setCourse(response.data.data);
+            console.log(response.data.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }, [authenticated]);
+    
+    return (
+        <>
+        <h2>Hi from Create</h2>
+        <CreateForm />
+        </>
+    )
+}
+export default Create

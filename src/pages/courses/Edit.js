@@ -10,7 +10,6 @@ const Edit = () => {
     level: '',
     points: '',
     title: '',
-    // Add more properties as needed
   });
 
   const history = useHistory();

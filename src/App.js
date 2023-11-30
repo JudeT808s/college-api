@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 // import pages
 import CoursesIndex from '../src/pages/courses/Index';
 import CoursesShow from '../src/pages/courses/Show';
+import CourseCreate from '../src/pages/courses/Create';
 import Home from '../src/pages/Home';
 // import components
 import Navbar from './components/Navbar';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 
-function App() {
+const App =() => {
   let protectedRoutes;
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -34,6 +35,7 @@ function App() {
       <>
         <Route path="/" element={<CoursesIndex />} />
         <Route path="/courses/:id" element={<CoursesShow />} />
+        <Route path="/courses/create" element={<CourseCreate />} />
       </>
     );
   } else {
