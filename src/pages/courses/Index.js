@@ -23,6 +23,7 @@ const Index = () => {
 
   return (
     <>
+      <button class="btn">Button</button>
       <p>Hello from Courses Index</p>
       {coursesList.map(course => (
         <Link to={`/courses/${course.id}`} key={course.id}>
