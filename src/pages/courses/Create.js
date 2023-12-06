@@ -1,28 +1,34 @@
-import CreateForm from '../../components/CreateForm'
 import axios from 'axios';
-import { useState , useEffect} from 'react';
-const Create = ({authenticated}) => {
-    const [course,setCourse] = useState([])
-    useEffect(() => {
-        let token = localStorage.getItem('token');
-        // Change this to a default domain to simplify soon
-        axios.post(`https://college-api.vercel.app/courses`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-          .then(response => {
-            setCourse(response.data.data);
-            console.log(response.data.data);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      }, [authenticated]);
-    
-    return (
-        <>
-        <h2>Hi from Create</h2>
-        <CreateForm />
-        </>
-    )
-}
-export default Create
+import CreateForm from '../../components/CreateForm';
+
+const Create = ({ authenticated }) => {
+  const createCourse = async (formData) => {
+    try {
+      const token = localStorage.getItem('token');
+
+      // Perform the API call with the form data
+      await axios.post(
+        'https://college-api.vercel.app/courses',
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      // Handle successful creation
+      console.log('Successfully created course');
+    } catch (err) {
+      // Handle error
+      console.error(err);
+    }
+  };
+
+  return (
+    <>
+      <h2>Hi from Create</h2>
+      <CreateForm onSubmit={createCourse} />
+    </>
+  );
+};
+
+export default Create;

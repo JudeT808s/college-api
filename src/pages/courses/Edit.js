@@ -16,7 +16,7 @@ const Edit = () => {
 
   useEffect(() => {
     // Fetch course data based on the provided course id
-    axios.get(`https://college-api.vercel.app/courses/${id}`)
+    axios.get(`https://college-api.vercel.app/course/${id}`)
       .then(response => {
         setCourseData(response.data.data);
       })
@@ -39,14 +39,14 @@ const Edit = () => {
     try {
       // Make a PUT request to update the course data
       const response = await axios.put(
-        `https://college-api.vercel.app/courses/${id}`,
+        `https://college-api.vercel.app/course/${id}`,
         courseData
       );
 
       console.log('Course updated:', response.data);
 
       // Redirect to the course details page or update the UI as needed
-      history.push(`/courses/${id}`);
+      history.push(`/course/${id}`);
     } catch (error) {
       console.error('Error updating course:', error);
     }

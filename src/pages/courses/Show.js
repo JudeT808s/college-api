@@ -8,7 +8,7 @@ const Index = () => {
     let token = localStorage.getItem('token');
 
     useEffect(() => {
-        axios.get(`https://college-api.vercel.app/courses/${id}`, {
+        axios.get(`https://college-api.vercel.app/course/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then(response => {
