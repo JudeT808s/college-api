@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import CoursesIndex from '../src/pages/courses/Index';
 import CoursesShow from '../src/pages/courses/Show';
-import CoursesCreate from '../src/pages/courses/Create'; // Renamed to CoursesCreate
+import CoursesCreate from '../src/pages/courses/Create';
+import CoursesEdit from '../src/pages/courses/Edit';
+
+// Renamed to CoursesCreate
 import Home from '../src/pages/Home';
 import Navbar from './components/Navbar';
 import RegisterForm from './components/RegisterForm';
@@ -34,8 +37,9 @@ const App = () => {
   const protectedRoutes = authenticated ? (
     <>
       <Route path="/" element={<CoursesIndex />} />
-      <Route path="/course/:id" element={<CoursesShow />} />
+      <Route path="/course/:id" element={<CoursesShow onAuthenticated={onAuthenticated} />} />
       <Route path="/courses/create" element={<CoursesCreate onAuthenticated={onAuthenticated} />} />
+      <Route path="/courses/edit/:id" element={<CoursesEdit onAuthenticated={onAuthenticated} />} />
     </>
   ) : (
     <>
