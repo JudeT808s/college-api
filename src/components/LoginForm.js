@@ -9,8 +9,8 @@ const LoginForm = ({ authenticated, onAuthenticated }) => {
 
     const [errorMessage, setErrorMessage] = useState("");
     const [form, setForm] = useState({
-        email: "test@test.com",
-        password: "Secret123"
+        email: "sam@bloggs.com",
+        password: "secret"
     });
 
     const handleClick = () => {
