@@ -6,6 +6,9 @@ import CoursesShow from '../src/pages/courses/Show';
 import CoursesCreate from '../src/pages/courses/Create';
 import CoursesEdit from '../src/pages/courses/Edit';
 
+//Lecturers
+import LecturersIndex from '../src/pages/lecturers/Index';
+import LecturersShow from '../src/pages/lecturers/Show';
 // Renamed to CoursesCreate
 import Home from '../src/pages/Home';
 import Navbar from './components/Navbar';
@@ -37,7 +40,6 @@ const App = () => {
   const protectedRoutes = authenticated ? (
     <>
       <Route path="/" element={<CoursesIndex />} />
-      <Route path="/course/:id" element={<CoursesShow onAuthenticated={onAuthenticated} />} />
       <Route path="/courses/create" element={<CoursesCreate onAuthenticated={onAuthenticated} />} />
       <Route path="/courses/edit/:id" element={<CoursesEdit onAuthenticated={onAuthenticated} />} />
     </>
@@ -56,6 +58,9 @@ const App = () => {
       {/* Routes for different components */}
       <Routes>
         <Route path="/" element={<Home authenticated={authenticated} onAuthenticated={onAuthenticated} />} />
+        <Route path="/course/:id" element={<CoursesShow onAuthenticated={onAuthenticated} />} />
+        <Route path="/lecturer/:id" element={<LecturersShow onAuthenticated={onAuthenticated} />} />
+        <Route path="/lecturers" element={<LecturersIndex />} />
         {protectedRoutes}
       </Routes>
     </Router>
