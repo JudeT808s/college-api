@@ -6,11 +6,17 @@ import CoursesShow from '../src/pages/courses/Show';
 import CoursesCreate from '../src/pages/courses/Create';
 import CoursesEdit from '../src/pages/courses/Edit';
 
-// Renamed to CoursesCreate
+// Import courses
 import Home from '../src/pages/Home';
 import Navbar from './components/Navbar';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
+
+// 
+import EnrolmentsIndex from '../src/pages/enrolments/Index';
+import EnrolmentsShow from '../src/pages/enrolments/Show';
+import EnrolmentsCreate from '../src/pages/enrolments/Create';
+import EnrolmentsEdit from '../src/pages/enrolments/Edit';
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
@@ -39,6 +45,7 @@ const App = () => {
       <Route path="/" element={<CoursesIndex />} />
       <Route path="/course/:id" element={<CoursesShow onAuthenticated={onAuthenticated} />} />
       <Route path="/courses/create" element={<CoursesCreate onAuthenticated={onAuthenticated} />} />
+      <Route path="/enrolments/create" element={<EnrolmentsCreate onAuthenticated={onAuthenticated} />} />
       <Route path="/courses/edit/:id" element={<CoursesEdit onAuthenticated={onAuthenticated} />} />
     </>
   ) : (
@@ -56,6 +63,9 @@ const App = () => {
       {/* Routes for different components */}
       <Routes>
         <Route path="/" element={<Home authenticated={authenticated} onAuthenticated={onAuthenticated} />} />
+        {protectedRoutes}
+        <Route path="/enrolments" element={<EnrolmentsIndex authenticated={authenticated} onAuthenticated={onAuthenticated} />} />
+        <Route path="/enrolments/:id" element={<EnrolmentsShow onAuthenticated={onAuthenticated} />} />
         {protectedRoutes}
       </Routes>
     </Router>

@@ -58,7 +58,6 @@ const Show = (authenticated) => {
                         <strong>Lecturer Name:</strong> {enrolment.lecturer.name}
                         <br />
                         <strong>Status:</strong> {enrolment.status}
-                        {/* Add more enrolment details as needed */}
                     </li>
                 ))}
             </ul>
