@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 const Edit = () => {
   const { id } = useParams();
-  const [courseData, setCourseData] = useState({
+  const [lecturerData, setLecturerData] = useState({
     code: '',
     description: '',
     level: '',
@@ -16,11 +16,11 @@ const Edit = () => {
 
   useEffect(() => {
     // Fetch course data based on the provided course id
-    axios.get(`https://college-api.vercel.app/courses/${id}`, {
+    axios.get(`https://college-api.vercel.app/lecturers/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        setCourseData(response.data.data);
+        setLecturerData(response.data.data);
       })
       .catch(error => {
         console.error('Error fetching course data:', error);
@@ -29,7 +29,7 @@ const Edit = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCourseData((prevData) => ({
+    setLecturerData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -41,8 +41,8 @@ const Edit = () => {
     try {
       // Make a PUT request to update the course data
       const response = await axios.put(
-        `https://college-api.vercel.app/courses/${id}`,
-        courseData,
+        `https://college-api.vercel.app/lecturers/${id}`,
+        lecturerData,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -67,7 +67,7 @@ const Edit = () => {
           <input
             type="text"
             name="title"
-            value={courseData.title}
+            value={lecturerData.title}
             onChange={handleChange}
           />
         </label>
@@ -77,7 +77,7 @@ const Edit = () => {
           <input
             type="text"
             name="code"
-            value={courseData.code}
+            value={lecturerData.code}
             onChange={handleChange}
           />
         </label>
@@ -87,7 +87,7 @@ const Edit = () => {
           <input
             type="text"
             name="description"
-            value={courseData.description}
+            value={lecturerData.description}
             onChange={handleChange}
           />
         </label>
@@ -97,7 +97,7 @@ const Edit = () => {
           <input
             type="text"
             name="level"
-            value={courseData.level}
+            value={lecturerData.level}
             onChange={handleChange}
           />
         </label>
@@ -107,7 +107,7 @@ const Edit = () => {
           <input
             type="text"
             name="points"
-            value={courseData.points}
+            value={lecturerData.points}
             onChange={handleChange}
           />
         </label>

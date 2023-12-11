@@ -48,7 +48,6 @@ const Show = ({ authenticated }) => {
 
   return (
     <>
-      <h2>Enrolment: {id}</h2>
       {authenticated ? (
         <>
           <Link to={`/enrolments/edit/${id}`}>Edit</Link>

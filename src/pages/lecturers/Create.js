@@ -1,5 +1,5 @@
 import axios from 'axios';
-import CreateForm from '../../components/CreateForm';
+import CreateForm from '../../components/CreateLecturerForm';
 
 const Create = ({ authenticated }) => {
   const createCourse = async (formData) => {
@@ -8,7 +8,7 @@ const Create = ({ authenticated }) => {
 
       // Perform the API call with the form data
       await axios.post(
-        'https://college-api.vercel.app/courses',
+        'https://college-api.vercel.app/lecturers',
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -25,7 +25,7 @@ const Create = ({ authenticated }) => {
 
   return (
     <>
-      <h2>Hi from Create</h2>
+      {/* <h2>Hi from Create</h2> */}
       <CreateForm onSubmit={createCourse} />
     </>
   );

@@ -6,14 +6,13 @@ import CoursesShow from '../src/pages/courses/Show';
 import CoursesCreate from '../src/pages/courses/Create';
 import CoursesEdit from '../src/pages/courses/Edit';
 
-<<<<<<< HEAD
 //Lecturers
 import LecturersIndex from '../src/pages/lecturers/Index';
 import LecturersShow from '../src/pages/lecturers/Show';
+import LecturersCreate from '../src/pages/lecturers/Create';
+import LecturersEdit from '../src/pages/lecturers/Edit';
 // Renamed to CoursesCreate
-=======
 // Import courses
->>>>>>> 0e0ae5ca20a14b1c6ae857e8b87c27c89f9c0bfd
 import Home from '../src/pages/Home';
 import Navbar from './components/Navbar';
 import RegisterForm from './components/RegisterForm';
@@ -51,8 +50,12 @@ const App = () => {
     <>
       <Route path="/" element={<CoursesIndex />} />
       <Route path="/courses/create" element={<CoursesCreate onAuthenticated={onAuthenticated} />} />
-      <Route path="/enrolments/create" element={<EnrolmentsCreate onAuthenticated={onAuthenticated} />} />
       <Route path="/courses/edit/:id" element={<CoursesEdit onAuthenticated={onAuthenticated} />} />
+      <Route path="/lecturers/create" element={<LecturersCreate onAuthenticated={onAuthenticated} />} />
+      <Route path="/lecturers/edit/:id" element={<LecturersEdit onAuthenticated={onAuthenticated} />} />
+      <Route path="/enrolments/create" element={<EnrolmentsCreate onAuthenticated={onAuthenticated} />} />
+      <Route path="/lecturers/edit/:id" element={<EnrolmentsEdit onAuthenticated={onAuthenticated} />} />
+     
     </>
   ) : (
     <>

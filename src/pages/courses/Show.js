@@ -45,6 +45,7 @@ const Show = (authenticated) => {
             <h2>Course: {id}</h2>
             {authenticated ? (
                 <>
+                    {/* Change links to be passed info from props to improve efficiency */}
                     <Link to={`/courses/edit/${id}`}>Edit</Link>
                     <button onClick={handleDelete}>Delete Course</button>
                     </>

@@ -24,7 +24,9 @@ const Navbar = ({ authenticated, onAuthenticated }) => {
                   <button onClick={logout}>Logout</button>
                 </li>
                 <li>
-                  <Link to="/courses/create">Create</Link>
+                  <Link to="/courses/create">Create Course</Link>
+                  <Link to="/lecturers/create">Create Lecturer</Link>
+                  <Link to="/enrolments/create">Create Enrolment</Link>
                 </li>
               </ul>
             ) : ""}
