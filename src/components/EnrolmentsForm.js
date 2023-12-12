@@ -37,6 +37,50 @@ const CreateForm = ({ onSubmit }) => {
   return (
     <>
       This is the course create Form
+      <label>
+        Course ID:
+        <input
+          type="text"
+          name="course_id"
+          value={form.course_id}
+          onChange={handleForm}
+        />
+      </label>
+      <br />
+
+      <label>
+        Lecturer ID:
+        <input
+          type="text"
+          name="lecturer_id"
+          value={form.lecturer_id}
+          onChange={handleForm}
+        />
+      </label>
+      <br />
+
+      <label>
+        Date:
+        <input
+          type="date"
+          name="date"
+          value={form.date}
+          onChange={handleForm}
+        />
+      </label>
+      <br />
+
+      <label>
+        Time:
+        <input
+          type="time"
+          name="time"
+          value={form.time}
+          onChange={handleForm}
+        />
+      </label>
+      <br />
+
       <select id="cars" name="cars">
         {/* Loop through array to get options from axios */}
       <option value="interested">Interested</option>

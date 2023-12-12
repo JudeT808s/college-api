@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ authenticated, onAuthenticated }) => {
@@ -5,35 +6,71 @@ const Navbar = ({ authenticated, onAuthenticated }) => {
 
   const logout = () => {
     onAuthenticated(false);
+    navigate('/');
   };
 
   return (
     <div className="navbar bg-base-100">
-      <div className="flex-1">
-        <Link to="/">Home</Link>
+        <div class="navbar-start">
+        <Link to="/" className="text-2xl font-bold">College</Link>
       </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a>Link</a>
+      <div class="navbar-center hidden lg:flex">
+
+        {authenticated && (
+    <ul class="menu menu-horizontal px-1">
+    <li>
+          <button onClick={logout}>Logout</button>
+        </li>
+      
+      <li>
+        <Link to="/courses/create">Create Course</Link>
+      </li>
+      <li>
+        <Link to="/lecturers/create">Create Lecturer</Link>
+      </li>
+      <li>
+        <Link to="/enrolments/create">Create Enrolment</Link>
           </li>
-          <li>
-            {(authenticated) ? (
-              <ul className="px-5 bg-base-100 rounded-t-none">
-                <li>
-                  <button onClick={logout}>Logout</button>
-                </li>
-                <li>
-                  <Link to="/courses/create">Create Course</Link>
-                  <Link to="/lecturers/create">Create Lecturer</Link>
-                  <Link to="/enrolments/create">Create Enrolment</Link>
-                </li>
-              </ul>
-            ) : ""}
-          </li>
-        </ul>
-      </div>
-    </div>
+          </ul>
+        )}
+        </div>
+     
+  </div>
+  
+      
+  
+    // <div className="navbar bg-base-100 p-2">
+    //   <div className="flex-1">
+    //     <Link to="/">Home</Link>
+    //   </div>
+    //   <div className="flex-none">
+    //     <ul className="menu menu-horizontal">
+    //       <li>
+    //         <a href="/">Link</a>
+    //       </li>
+    //       {authenticated && (
+    //         <li className="relative">
+    //           <a>Account</a>
+    //           <ul className="menu menu-box py-2 w-40">
+    //             <li>
+    //               <Link to="/courses/create">Create Course</Link>
+    //             </li>
+    //             <li>
+    //               <Link to="/lecturers/create">Create Lecturer</Link>
+    //             </li>
+    //             <li>
+    //               <Link to="/enrolments/create">Create Enrolment</Link>
+    //             </li>
+    //             <li className="divider"></li>
+    //             <li>
+    //               <button onClick={logout}>Logout</button>
+    //             </li>
+    //           </ul>
+    //         </li>
+    //       )}
+    //     </ul>
+    //   </div>
+    // </div>
   );
 };
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import CreateForm from '../../components/CreateForm';
+import CreateForm from '../../components/EnrolmentsForm';
 
 const Create = ({ authenticated }) => {
   const createEnrolment = async (formData) => {
