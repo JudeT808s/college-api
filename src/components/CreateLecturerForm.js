@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, } from 'react';
+
+
 
 const CreateForm = ({ onSubmit }) => {
+  
   const errorStyle = {
     color: 'red',
   };
@@ -12,6 +15,7 @@ const CreateForm = ({ onSubmit }) => {
     phone: '',
     email: '',
   });
+
 
   const handleForm = (e) => {
     setForm((prevState) => ({
@@ -86,6 +90,7 @@ const CreateForm = ({ onSubmit }) => {
         />
       </label>
       <br />
+      
 
       <button onClick={handleClick}>Submit</button>
       <p style={errorStyle}>{errorMessage}</p>

@@ -11,13 +11,13 @@ const Navbar = ({ authenticated, onAuthenticated }) => {
 
   return (
     <div className="navbar bg-base-100">
-        <div class="navbar-start">
+        <div className="navbar-start">
         <Link to="/" className="text-2xl font-bold">College</Link>
       </div>
-      <div class="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden lg:flex">
 
         {authenticated && (
-    <ul class="menu menu-horizontal px-1">
+    <ul className="menu menu-horizontal px-1">
     <li>
           <button onClick={logout}>Logout</button>
         </li>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 const Index = () => {
-  const [coursesList, setCoursesList] = useState([]);
+  const [lecturesList, setLecturersList] = useState([]);
   let token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -13,7 +13,7 @@ const Index = () => {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        setCoursesList(response.data.data);
+        setLecturersList(response.data.data);
         console.log(response.data.data);
       })
       .catch(err => {
@@ -25,7 +25,7 @@ const Index = () => {
     <>
       <button className="btn">Button</button>
       <p>Hello from Courses Index</p>
-      {coursesList.map(lecturer => (
+      {lecturesList.map(lecturer => (
         <Link to={`/lecturer/${lecturer.id}`} key={lecturer.id}>
           <div>{lecturer.name}</div>
         </Link>

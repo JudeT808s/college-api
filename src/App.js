@@ -55,6 +55,9 @@ const App = () => {
       <Route path="/lecturers/edit/:id" element={<LecturersEdit onAuthenticated={onAuthenticated} />} />
       <Route path="/enrolments/create" element={<EnrolmentsCreate onAuthenticated={onAuthenticated} />} />
       <Route path="/lecturers/edit/:id" element={<EnrolmentsEdit onAuthenticated={onAuthenticated} />} />
+      <Route path="/register" element={<RegisterForm onAuthenticated={onAuthenticated} />} />
+      <Route path="/login" element={<LoginForm onAuthenticated={onAuthenticated} />} />
+
      
     </>
   ) : (
