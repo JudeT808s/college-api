@@ -41,28 +41,41 @@ const Show = (authenticated) => {
       };
     
     return (
-        <>
-            <h2>Course: {id}</h2>
-            {authenticated ? (
-                <>
-                    {/* Change links to be passed info from props to improve efficiency */}
-                    <Link to={`/courses/edit/${id}`}>Edit</Link>
-                    <button onClick={handleDelete}>Delete Course</button>
-                    </>
-            ) : null}
-
-            <h2>{course.data.code}</h2>
-            <h2>{course.data.description}</h2>
-            <ul>
-                {course.data.enrolments.map(enrolment => (
-                    <li key={enrolment.id}>
-                        <strong>Lecturer Name:</strong> {enrolment.lecturer.name}
-                        <br />
-                        <strong>Status:</strong> {enrolment.status}
-                    </li>
-                ))}
-            </ul>
-        </>
+        <div className='flex'>
+            <div className='w-1/2 p-4'>
+                <h1>Course Details</h1>
+                <h2>Course: {id}</h2>
+                <div>
+                    {authenticated && (
+                        <>
+                            <Link to={`/courses/edit/${id}`}>Edit</Link>
+                            <button onClick={handleDelete}>Delete Course</button>
+                        </>
+                    )}
+                </div>
+                <h2>{course.data.code}</h2>
+                <h2>{course.data.description}</h2>
+            </div>
+            <div className='w-1/2 p-4'>
+                <ul>
+                    {course.data.enrolments.map(enrolment => (
+                        <li key={enrolment.id}>
+                            {/* View Lecturer instead */}
+                                        <div className="card w-96 bg-primary text-primary-content">
+                                        <div className="card-body">
+                                        <h2 className="card-title"> <strong>Lecturer Name:</strong> {enrolment.lecturer.name}</h2>
+                                    <strong>Status:</strong> {enrolment.status}
+                                    <div className="card-actions justify-end">
+                                    <Link to={`/enrolments/${enrolment.id}`}>
+      <button className="btn">View</button></Link>
+    </div>
+                            </div>
+                            </div>
+                            </li>
+                    ))}
+                </ul>
+  </div>
+</div>
     );
 }
 

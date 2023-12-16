@@ -49,6 +49,7 @@ const App = () => {
   const protectedRoutes = authenticated ? (
     <>
       <Route path="/" element={<CoursesIndex />} />
+      <Route path="/courses" element={<CoursesIndex />} />
       <Route path="/courses/create" element={<CoursesCreate onAuthenticated={onAuthenticated} />} />
       <Route path="/courses/edit/:id" element={<CoursesEdit onAuthenticated={onAuthenticated} />} />
       <Route path="/lecturers/create" element={<LecturersCreate onAuthenticated={onAuthenticated} />} />

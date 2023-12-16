@@ -13,6 +13,14 @@ const Navbar = ({ authenticated, onAuthenticated }) => {
     <div className="navbar bg-base-100">
         <div className="navbar-start">
         <Link to="/" className="text-2xl font-bold">College</Link>
+        <details className="dropdown">
+  <summary className="m-1 btn">open or close</summary>
+  <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+  <li><Link to="/courses">View Course</Link></li>
+  <li><Link to="/lecturers">View Lecturers</Link></li>
+  <li><Link to="/enrolments">View Enrolments</Link></li>
+  </ul>
+</details>
       </div>
       <div className="navbar-center hidden lg:flex">
 
