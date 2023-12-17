@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { set } from 'react-hook-form';
+// import { set } from 'react-hook-form';
 
 const Edit = () => {
   const { id } = useParams();

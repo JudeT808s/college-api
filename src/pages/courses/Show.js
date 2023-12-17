@@ -66,7 +66,7 @@ const Show = (authenticated) => {
                                         <h2 className="card-title"> <strong>Lecturer Name:</strong> {enrolment.lecturer.name}</h2>
                                     <strong>Status:</strong> {enrolment.status}
                                     <div className="card-actions justify-end">
-                                    <Link to={`/enrolments/${enrolment.id}`}>
+                                    <Link to={`/lecturer/${enrolment.lecturer_id}`}>
       <button className="btn">View</button></Link>
     </div>
                             </div>

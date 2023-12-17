@@ -22,22 +22,25 @@ const Index = () => {
   }, [token]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-3 gap-4">
-      {coursesList.map((course) => (
-        <Link to={`/course/${course.id}`} key={course.id}>
-          <div className="card w-80 bg-base-100 shadow-lg">
-            <div className="card-body">
-              <h2 className="card-title text-xl font-semibold mb-2">{course.title}</h2>
-              <p className="mb-4">{course.description}</p>
-              <div className="card-actions flex justify-end">
-              <Link to={`/course/${course.id}`} key={course.id}>
- <button className="btn btn-primary">View</button></Link>
-              </div>
-            </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-2">
+  {coursesList.map((course) => (
+    <Link to={`/course/${course.id}`} key={course.id}>
+      <div className="card bg-base-100 shadow-lg sm:w-64 md:w-72 lg:w-80 gap-5">
+        <div className="card-body">
+          <h2 className="card-title text-xl font-semibold mb-2">{course.title}</h2>
+          <p className="mb-4">{course.description}</p>
+          <div className="card-actions flex justify-end">
+            <Link to={`/course/${course.id}`} key={course.id}>
+              <button className="btn btn-primary">View</button>
+            </Link>
           </div>
-        </Link>
-      ))}
-    </div>
+        </div>
+      </div>
+    </Link>
+  ))}
+</div>
+
+  
   );
 }
 

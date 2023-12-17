@@ -15,8 +15,7 @@ import LecturersEdit from '../src/pages/lecturers/Edit';
 // Import courses
 import Home from '../src/pages/Home';
 import Navbar from './components/Navbar';
-import RegisterForm from './components/RegisterForm';
-import LoginForm from './components/LoginForm';
+
 
 // Enrolments
 import EnrolmentsIndex from '../src/pages/enrolments/Index';

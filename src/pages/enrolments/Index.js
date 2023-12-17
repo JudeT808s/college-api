@@ -23,18 +23,22 @@ const Index = () => {
 
   return (
     <>
-      <button className="btn">Button</button>
       <p>Hello from Enrolments Index</p>
+      <div className="grid lg:grid-cols-3 md:grid-cols-2">
       {enrolmentsList.map(enrolments => (
-      
-        <Link to={`/enrolment/${enrolments.id}`} key={enrolments.id}>
-          <div>
-            <h2>{enrolments.name}</h2>
-            <h2>{enrolments.status}</h2>
-          </div>
+                  <div className="card w-96 bg-base-100 shadow-xl mb-3 ">
+
+          <Link to={`/enrolment/${enrolments.id}`} key={enrolments.id}>
+          <div className="card-body">
+            <h2>{enrolments.lecturer.name}</h2>
+              <h2>{enrolments.status}</h2>
+              </div>
           </Link>
-        
+          </div>
+
       ))}
+          </div>
+
     </>
   );
 }
