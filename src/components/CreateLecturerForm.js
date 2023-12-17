@@ -78,7 +78,7 @@ const CreateForm = ({ onSubmit, isEdit, id }) => {
   return (
     <FormProvider {...methods}>
     <form onSubmit={methods.handleSubmit(handleClick)} className="container mx-auto max-w-md space-y-4">
-      <h1 className="text-2xl font-semibold">{isEdit ? 'Edit' : 'Create'} Course Form</h1>
+      <h1 className="text-2xl font-semibold">{isEdit ? 'Edit' : 'Create'} Lecturer Form</h1>
 
       {Object.keys(form).map((field) => (
         <div key={field}>

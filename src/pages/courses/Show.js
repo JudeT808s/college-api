@@ -61,7 +61,7 @@ const Show = (authenticated) => {
                 <ul>
                     {course.data.enrolments.map(enrolment => (
                         <li key={enrolment.id}>
-                            <div className="card w-96 bg-primary text-primary-content">
+                            <div className="card  bg-neutral text-primary-content mb-8">
                                 <div className="card-body">
                                     <h2 className="card-title"> <strong>Lecturer Name:</strong> {enrolment.lecturer.name}</h2>
                                     <strong>Status:</strong> {enrolment.status}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Button } from 'react-daisyui';
 
 const CreateForm = ({ onSubmit }) => {
   const [coursesList, setCoursesList] = useState([]);
@@ -67,7 +68,9 @@ const CreateForm = ({ onSubmit }) => {
   };
 
   return (
-    <div>
+    <div className='container mx-auto max-w-md space-y-4">'>
+            <h1 className="text-2xl font-semibold">Create Enrolments Form</h1>
+
       {/* This is the enrolments create Form */}
       <br />
       <label>
@@ -124,7 +127,7 @@ const CreateForm = ({ onSubmit }) => {
       </label>
       <br />
 
-      <button onClick={handleClick}>Submit</button>
+      <Button type='button' onClick={handleClick} className='btn-primary'>Submit</Button>
       {/* Display any error messages */}
       <p style={errorStyle}>{/* Error messages go here */}</p>
       <br />

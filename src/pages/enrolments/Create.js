@@ -26,7 +26,7 @@ const Create = ({ authenticated }) => {
 
   return (
     <>
-      <h2>Hi from Create</h2>
+      {/* <h2>Hi from Create</h2> */}
       <CreateForm onSubmit={createEnrolment} />
     </>
   );

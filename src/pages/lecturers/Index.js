@@ -24,7 +24,7 @@ const Index = () => {
   return (
     <>
     
-      <p>Hello from Courses Index</p>
+      {/* <p>Hello from Courses Index</p> */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
       {lecturersList.map(lecturer => (
           <div className="card bg-base-100 shadow-xl">

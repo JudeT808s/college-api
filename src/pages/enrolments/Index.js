@@ -23,7 +23,7 @@ const Index = () => {
 
   return (
     <>
-      <p>Hello from Enrolments Index</p>
+      {/* <p>Hello from Enrolments Index</p> */}
       <div className="grid lg:grid-cols-3 md:grid-cols-2">
       {enrolmentsList.map(enrolments => (
                   <div className="card w-96 bg-base-100 shadow-xl mb-3 ">
