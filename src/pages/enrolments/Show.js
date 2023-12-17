@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {  useParams } from 'react-router-dom';
-import {  Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const Show = (authenticated) => {
   const { id } = useParams();
@@ -20,7 +19,8 @@ const Show = (authenticated) => {
       .then(response => {
         setEnrolment(response.data);
 
-        if (Array.isArray(response.data.lecturer)) {
+  
+        if (response.data.lecturer && Array.isArray(response.data.lecturer)) {
           setLecturers(response.data.lecturer);
         } else {
           setLecturers([]);
@@ -34,6 +34,19 @@ const Show = (authenticated) => {
       });
   }, [id, token]);
 
+  const handleDelete = async () => {
+    try {
+      // Delete the enrollment
+      await axios.delete(`https://college-api.vercel.app/enrolments/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log('Enrolment deleted:', id)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -46,31 +59,17 @@ const Show = (authenticated) => {
     return <h3>Enrolment not found</h3>;
   }
 
-  const handleDelete = async () => {
-    try {
-      const response = await axios.delete(
-        `https://college-api.vercel.app/enrolment/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      console.log('Enrolment deleted:', response.data);
-    } catch (error) {
-      console.error('Error deleting enrolment:', error);
-    }
-  };
-
   return (
     <>
-    {authenticated ? (
-      <div>
-        <Link to={`/enrolment/edit/${id}`}>Edit</Link>
-        <button onClick={handleDelete}>Delete</button>
-      </div>
-    ) : (
-      <h2>No</h2>
-    )}
+      {authenticated ? (
+        <div className='flex justify-end gap-2 px-2'>
+          <button className="btn btn-primary">
+            <Link to={`/enrolment/edit/${id}`}>Edit</Link>
+            </button>
+          <button className="btn btn-error" onClick={handleDelete}>Delete</button>
+        </div>
+       ) : ( 
+        null)}
       <h2>{enrolment.data.code}</h2>
       <h2>{enrolment.data.description}</h2>
       <h2>{enrolment.data.lecturer.name}</h2>

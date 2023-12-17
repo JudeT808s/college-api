@@ -12,9 +12,10 @@ import LecturersShow from '../src/pages/lecturers/Show';
 import LecturersCreate from '../src/pages/lecturers/Create';
 import LecturersEdit from '../src/pages/lecturers/Edit';
 // Renamed to CoursesCreate
-// Import courses
+// Import essential components
 import Home from '../src/pages/Home';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 
 // Enrolments
@@ -73,6 +74,7 @@ const App = () => {
         {/* 404 Not Found */}
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
+      <Footer/>
     </Router>
   );
 };

@@ -11,10 +11,10 @@ const Navbar = ({ authenticated, onAuthenticated }) => {
 
   return (
     <div className="navbar bg-base-100">
-        <div className="navbar-start">
+        <div className="navbar-start gap-1">
         <Link to="/" className="text-2xl font-bold">College</Link>
         <details className="dropdown">
-  <summary className="m-1 btn">open or close</summary>
+  <summary className="m-1 btn gap-1">Explore Here</summary>
   <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
   <li><Link to="/courses">View Course</Link></li>
   <li><Link to="/lecturers">View Lecturers</Link></li>
@@ -26,9 +26,7 @@ const Navbar = ({ authenticated, onAuthenticated }) => {
 
         {authenticated && (
     <ul className="menu menu-horizontal px-1">
-    <li>
-          <button onClick={logout}>Logout</button>
-        </li>
+   
       
       <li>
         <Link to="/courses/create">Create Course</Link>
@@ -38,7 +36,10 @@ const Navbar = ({ authenticated, onAuthenticated }) => {
       </li>
       <li>
         <Link to="/enrolments/create">Create Enrolment</Link>
-          </li>
+            </li>
+            <li>
+          <button onClick={logout}>Logout</button>
+        </li>
           </ul>
         )}
         </div>

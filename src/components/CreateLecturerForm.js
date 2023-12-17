@@ -29,7 +29,7 @@ const CreateForm = ({ onSubmit, isEdit, id }) => {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then(response => {
-          const { created_at, updated_at, ...editableData } = response.data.data;
+          const { created_at, updated_at,enrolments, ...editableData } = response.data.data;
           setForm(editableData);
         })
         .catch(err => {

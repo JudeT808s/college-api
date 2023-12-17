@@ -8,25 +8,16 @@ const Edit = () => {
   const [coursesList, setCoursesList] = useState([]);
   const [lecturersList, setLecturersList] = useState([]);
   const [form, setForm] = useState({
-    course: `{form.course}`,
-    lecturer: `{form.lecturer}`, 
-    Status: 'Interested',
+    course_id: '',
+    lecturer_id: '',
+    date: '',
+    time: '',
+    status: 'interested',
   });
 
   let token = localStorage.getItem('token');
 
-  useEffect(() => {
-    // Fetch course data based on the provided course id
-    axios.get(`https://college-api.vercel.app/courses/${id}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => {
-        setForm(response.data.data);
-      })
-      .catch(error => {
-        console.error('Error fetching course data:', error);
-      });
-  }, [token, id]);
+ 
   useEffect(() => {
     axios.get(`https://college-api.vercel.app/courses`, {
       headers: { Authorization: `Bearer ${token}` }
@@ -52,7 +43,7 @@ const Edit = () => {
         console.log(err);
       });
   }, [token]);
-  const handleChange = (e) => {
+  const handleForm = (e) => {
     const { name, value } = e.target;
     setForm((prevData) => ({
       ...prevData,
@@ -78,70 +69,73 @@ const Edit = () => {
       // Redirect to the course details page or update the UI as needed
     } catch (error) {
       console.error('Error updating course:', error);
+      console.log(form);
     }
   };
   
 
   return (
-    <>
-      This is the enrolments edit Form
-      <br />
-      <label>
-        Date:
-        <input
-          type="date"
-          name="date"
-          value={form.date}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
+    <div>
+    This is the enrolments create Form
+    <br />
+    <label>
+      Date:
+      <input
+        type="date"
+        name="date"
+        value={form.date}
+        onChange={handleForm}
+      />
+    </label>
+    <br />
 
-      <label>
-        Time:
-        <input
-          type="time"
-          name="time"
-          value={form.time}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label> Course:
-      <select id="course" name="course">
-        {coursesList.map((course) => (
-          <option key={course.id} value={course.id}>
-            {course.title}
-          </option>
-        ))}
-        </select>
-      </label>
-      <br/>
-      <label> Lecturer:
-      <select id="lecturer" name="lecturer">
+    <label>
+      Time:
+      <input
+        type="time"
+        name="time"
+        value={form.time}
+        onChange={handleForm}
+      />
+    </label>
+    <br />
+    <label> Course:
+<select id="course" name="course_id" onChange={handleForm} value={form.course_id}>
+  {coursesList.map((course) => (
+    <option key={course.id} value={course.id}>
+      {course.title}
+    </option>
+  ))}
+</select>
+</label>
+
+    <br />
+    <label> Lecturer:
+      <select id="lecturer" name="lecturer_id" onChange={handleForm} value={form.lecturer_id}>
         {lecturersList.map((lecturer) => (
           <option key={lecturer.id} value={lecturer.id}>
             {lecturer.name}
           </option>
         ))}
-        </select>
-      </label>
-      <br />
-      <label>
-        {/* Loop through somewhere? */}
-        Status:
-        <select id="status" name="Status" onChange={handleChange} value={form.Status}>
-          <option value="Interested">Interested</option>
-          <option value="Assigned">Assigned</option>
-          <option value="Associate">Associate</option>
-          <option value="Career_Break">Career Break</option>
-        </select>
-      </label>
-      <br/>
+      </select>
+    </label>
 
-      <button onClick={handleSubmit}>Submit</button>
-      <br />
-      </>
+    <br />
+    <label>
+      Status:
+      <select id="status" name="status" onChange={handleForm} value={form.status}>
+        <option value="interested">Interested</option>
+        <option value="assigned">Assigned</option>
+        <option value="associate">Associate</option>
+        <option value="career_break">Career Break</option>
+      </select>
+    </label>
+    <br />
+
+    <button onClick={handleSubmit}>Submit</button>
+    {/* Display any error messages */}
+    <br />
+  </div>
   );
 };
 

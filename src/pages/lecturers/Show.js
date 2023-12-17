@@ -43,10 +43,12 @@ const Show = (authenticated) => {
     return (
         <>
             {authenticated ? (
-                <>
-                    <Link to={`/lecturers/edit/${id}`}>Edit</Link>
-                    <button onClick={handleDelete}>Delete lecturer</button>
-                </>
+                <div className='flex justify-end gap-2 px-2'>
+                <button className="btn btn-primary">
+                  <Link to={`/lecturers/edit/${id}`}>Edit</Link>
+                  </button>
+                <button className="btn btn-error" onClick={handleDelete}>Delete</button>
+              </div>
             ) : null}
             <div className="container mx-auto grid grid-cols-3 gap-8">
                 <div className="col-span-3 md:col-span-1 flex flex-col items-center justify-center mb-8 md:mb-0">

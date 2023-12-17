@@ -19,6 +19,7 @@ const Create = ({ authenticated }) => {
       console.log('Successfully created Enrolment');
     } catch (err) {
       // Handle error
+      console.log(formData)
       console.error(err);
     }
   };

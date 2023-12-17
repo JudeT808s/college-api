@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
 const CreateForm = ({ onSubmit }) => {
   const [coursesList, setCoursesList] = useState([]);
   const [lecturersList, setLecturersList] = useState([]);
-  let token = localStorage.getItem('token');
-  let lecturers = [];
+  const token = localStorage.getItem('token');
   const errorStyle = {
     color: 'red',
   };
@@ -15,7 +15,6 @@ const CreateForm = ({ onSubmit }) => {
     })
       .then(response => {
         setCoursesList(response.data.data);
-         console.log(response.data.data);
       })
       .catch(err => {
         console.log(err);
@@ -28,30 +27,34 @@ const CreateForm = ({ onSubmit }) => {
     })
       .then(response => {
         setLecturersList(response.data.data);
-        // console.log(response.data.data);
       })
       .catch(err => {
         console.log(err);
       });
   }, [token]);
-  const [errorMessage, setErrorMessage] = useState('');
+
   const [form, setForm] = useState({
-    Status: 'Interested',
+    date: '',
+    time: '',
+    course_id: '',
+    lecturer_id: '',
+    status: 'Interested',
   });
+  const [course_id, setCourseId] = useState('');
 
   const handleForm = (e) => {
+    const { name, value } = e.target;
+
+  
     setForm((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
+
   const handleClick = () => {
     console.log('clicked');
-    console.log({
-      title: form.title,
-
-    });
     // Pass the form data to the onSubmit prop
     onSubmit(form);
   };
@@ -64,8 +67,8 @@ const CreateForm = ({ onSubmit }) => {
   };
 
   return (
-    <>
-      This is the enrolments create Form
+    <div>
+      {/* This is the enrolments create Form */}
       <br />
       <label>
         Date:
@@ -89,41 +92,43 @@ const CreateForm = ({ onSubmit }) => {
       </label>
       <br />
       <label> Course:
-      <select id="course" name="course">
-        {coursesList.map((course) => (
-          <option key={course.id} value={course.id}>
-            {course.title}
-          </option>
-        ))}
-        </select>
-      </label>
-      <br/>
+  <select id="course" name="course_id" onChange={handleForm} value={form.course_id}>
+    {coursesList.map((course) => (
+      <option key={course.id} value={course.id}>
+        {course.title}
+      </option>
+    ))}
+  </select>
+</label>
+
+      <br />
       <label> Lecturer:
-      <select id="lecturer" name="lecturer">
-        {lecturersList.map((lecturer) => (
-          <option key={lecturer.id} value={lecturer.id}>
-            {lecturer.name}
-          </option>
-        ))}
+        <select id="lecturer" name="lecturer_id" onChange={handleForm} value={form.lecturer_id}>
+          {lecturersList.map((lecturer) => (
+            <option key={lecturer.id} value={lecturer.id}>
+              {lecturer.name}
+            </option>
+          ))}
         </select>
       </label>
+
       <br />
       <label>
-        {/* Loop through somewhere? */}
         Status:
-        <select id="status" name="Status" onChange={handleForm} value={form.Status}>
-          <option value="Interested">Interested</option>
-          <option value="Assigned">Assigned</option>
-          <option value="Associate">Associate</option>
-          <option value="Career_Break">Career Break</option>
+        <select id="status" name="status" onChange={handleForm} value={form.status}>
+          <option value="interested">Interested</option>
+          <option value="assigned">Assigned</option>
+          <option value="associate">Associate</option>
+          <option value="career_break">Career Break</option>
         </select>
       </label>
-      <br/>
+      <br />
 
       <button onClick={handleClick}>Submit</button>
-      <p style={errorStyle}>{errorMessage}</p>
+      {/* Display any error messages */}
+      <p style={errorStyle}>{/* Error messages go here */}</p>
       <br />
-      </>
+    </div>
   );
 };
 
