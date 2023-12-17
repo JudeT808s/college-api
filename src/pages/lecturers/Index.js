@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 const Index = () => {
-  const [lecturesList, setLecturersList] = useState([]);
+  const [lecturersList, setLecturersList] = useState([]);
   let token = localStorage.getItem('token');
 
   useEffect(() => {
@@ -23,13 +23,30 @@ const Index = () => {
 
   return (
     <>
-      <button className="btn">Button</button>
+    
       <p>Hello from Courses Index</p>
-      {lecturesList.map(lecturer => (
-        <Link to={`/lecturer/${lecturer.id}`} key={lecturer.id}>
-          <div>{lecturer.name}</div>
-        </Link>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {lecturersList.map(lecturer => (
+          <div className="card bg-base-100 shadow-xl">
+            <figure>
+              <img
+                src={`https://ui-avatars.com/api/?name=${lecturer.name}&size=256&rounded=true`}
+                alt="lecturer avatar"
+                className="rounded-full w-32 h-32 object-cover"
+              />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{lecturer.name}</h2>
+              <p>Click the button to listen on Spotiwhy app.</p>
+            <div className="card-actions justify-end">
+            <Link to={`/lecturer/${lecturer.id}`} key={lecturer.id}>
+                <button className="btn btn-primary">View</button>
+                </Link>
+              </div>
+            </div>
+          </div>
       ))}
+        </div>
     </>
   );
 }

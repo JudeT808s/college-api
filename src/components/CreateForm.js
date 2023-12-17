@@ -1,137 +1,85 @@
 import axios from 'axios';
 import { useState } from 'react';
-import Input from './Input';
-import {useForm, FormProvider } from 'react-hook-form'
+// import input from './input';
+import { useForm, FormProvider } from 'react-hook-form';
+
+import { Button } from 'react-daisyui';
+
 
 // const CreateForm = ({ onSubmit }) => {
-const CreateForm = ({  }) => {
-  const errorStyle = {
+  const CreateForm = ({ onSubmit }) => {
+      const errorStyle = {
     color: 'red'
 };
   const [errors, setErrors] = useState({});
-
-  const [errorMessage, setErrorMessage] = useState('');
   const [form, setForm] = useState({
-    // title: 'Example',
-    // code: 'DL821',
-    // description: 'A course',
-    // points: '300',
-    // level: '7',
+    title: '',
+    code: '',
+    description: '',
+    points: '',
+    level: '',
   });
   const methods = useForm()
 
-  const handleForm = (e) => {
+ 
+  const handleFormChange = (e) => {
+    const fieldName = e.target.name;
+    const fieldValue = e.target.value;
+
     setForm((prevState) => ({
       ...prevState,
-      [e.target.label]: e.target.value,
+      [fieldName]: fieldValue,
     }));
   };
   
-  // const handleClick = () => {
-  //   console.log('clicked');
-  //   console.log({
-  //     title: form.title,
-  //     code: form.code,
-  //     description: form.description,
-  //     points: form.points,
-  //     level: form.level,
-  //   });
-  //   // Pass the form data to the onSubmit prop
-  //   // onSubmit(form);
-  // };
   const isRequired = (fields) => {
-
     let included = true;
     setErrors({});
-
-    fields.forEach(field => {
-
-        if(!form[field]){
-            included = false;
-            setErrors(prevState => ({
-                ...prevState,
-                [field]: {
-                    message: `${field} is required!`
-                }
-            }));
-        }
-        
+  
+    Object.keys(fields).forEach((field) => {
+      if (!fields[field]) {
+        included = false;
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [field]: `${field} is required!`,
+        }));
+      }
     });
-
+  
     return included;
-};
-  const submitForm = (e) => {
+  };
+  const handleClick = (e) => {
     e.preventDefault();
     console.log('submitted', form);
-    // ifIsRequired
-    onSubmit(form);
+    if (isRequired(form)) {
+      onSubmit(form);
+    }
   };
-  const onSubmit = methods.handleSubmit(data => {
-    console.log(data)
-  })
+
   return (
     <FormProvider {...methods}>
+    <form onSubmit={methods.handleSubmit(onSubmit)} className="container mx-auto max-w-md space-y-4">
+      <h1 className="text-2xl font-semibold">Course Create Form</h1>
 
-    <form
-    onSubmit={e => e.preventDefault()}
-    noValidate
-      className="container"
-    >
-      This is the course create Form
-      <div>
-       <input
-        label="title"
-        onChange={handleForm}
-        type="text"
-        placeholder="please enter a title"
-          value={form.title} />
-        <span style={errorStyle}>{errors.title?.message}</span><br />
+      {Object.keys(form).map((field) => (
+        <div key={field}>
+          <label name={field} />
+          <input
+            name={field}
+            onChange={handleFormChange}
+            type={field === 'points' ? 'number' : 'text'}
+            placeholder={`Please enter ${field}`}
+            className={errors[field] ? 'border-red-500' : ''}
+          />
+          <span style={errorStyle}>{errors[field]}</span>
         </div>
-        <div>
-       <input
-      label="code"    
-        onChange={handleForm}
-        type="text"
-        placeholder="please enter a code"
-        value={form.code}/>
-        <span style={errorStyle}>{errors.code?.message}</span>
-       <br />
-      </div>
-      <div>
-      <input
-      label="description"   
-        onChange={handleForm}
-        type="text"
-        placeholder="please enter a description"
-        value={form.description}/>
-        <span style={errorStyle}>{errors.description?.message}</span>
-       <br />
-      </div>
-      <div>
-      <input
-      label="points"   
-        onChange={handleForm}
-        type="text"
-        value={form.points}
-        placeholder="please enter points"
+      ))}
 
-      /> <br />
-        </div>
-        <div>
-      <input
-      label="level"   
-        onChange={handleForm}
-        type="text"
-        placeholder="please enter a level"
-        value={form.level}/>
-        <span style={errorStyle}>{errors.level?.message}</span>
-       <br />
-      </div>
-      <button onClick={onSubmit}>Submit</button>
-      {/* <button onClick={handleClick}>Submit</button> */}
-      {/* <p style={errorStyle}>{errorMessage}</p> */}
-      </form>
-      </FormProvider>
+      <Button type="button" onClick={handleClick} className="btn-primary">
+        Submit
+      </Button>
+    </form>
+  </FormProvider>
   );
 };
 
