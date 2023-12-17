@@ -1,14 +1,17 @@
-import { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useForm, FormProvider } from 'react-hook-form';
+import { Button } from 'react-daisyui';
 
 
+const CreateForm = ({ onSubmit, isEdit, id }) => {
+  const token = localStorage.getItem('token');
 
-const CreateForm = ({ onSubmit }) => {
-  
   const errorStyle = {
     color: 'red',
   };
 
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errors, setErrors] = useState({});
   const [form, setForm] = useState({
     name: '',
     address: '',
@@ -16,85 +19,87 @@ const CreateForm = ({ onSubmit }) => {
     email: '',
   });
 
+  const methods = useForm();
 
-  const handleForm = (e) => {
+  useEffect(() => {
+    // If in edit mode and editData is available, initialize form state with editData
+    if (isEdit) {
+      // Fetch course data based on the provided course id
+      axios.get(`https://college-api.vercel.app/lecturers/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(response => {
+          const { created_at, updated_at, ...editableData } = response.data.data;
+          setForm(editableData);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [isEdit, id, token]);
+
+
+
+  const handleFormChange = (e) => {
+    const fieldName = e.target.name;
+    const fieldValue = e.target.value;
+
     setForm((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value,
+      [fieldName]: fieldValue,
     }));
   };
 
-  const handleClick = () => {
-    console.log('clicked');
-    console.log({
-      name: form.name,
-      address: form.address,
-      phone: form.phone,
-      email: form.email,
+  const isRequired = (fields) => {
+    let included = true;
+    setErrors({});
+
+    Object.keys(fields).forEach((field) => {
+      if (!fields[field]) {
+        included = false;
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [field]: `${field} is required!`,
+        }));
+      }
     });
-    // Pass the form data to the onSubmit prop
-    onSubmit(form);
+
+    return included;
   };
 
-  const submitForm = (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
-    console.log('submitted', form);
-    // ifIsRequired
-    onSubmit(form);
+    if (isRequired(form)) {
+      onSubmit(form);
+    }
   };
+
 
   return (
-    <>
-      <h1>Hi, This is the lecturers create Form</h1>
-      <br />
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={form.name}
-          onChange={handleForm}
-        />
-      </label>
-      <br />
+    <FormProvider {...methods}>
+    <form onSubmit={methods.handleSubmit(handleClick)} className="container mx-auto max-w-md space-y-4">
+      <h1 className="text-2xl font-semibold">{isEdit ? 'Edit' : 'Create'} Course Form</h1>
 
-      <label>
-        Address:
-        <input
-          type="text"
-          name="address"
-          value={form.address}
-          onChange={handleForm}
-        />
-      </label>
-      <br />
+      {Object.keys(form).map((field) => (
+        <div key={field}>
+          <label htmlFor={field}>{field}</label>
+          <input
+            name={field}
+            onChange={handleFormChange}
+            value={form[field]}
+            type={field === 'phone' || field === 'level' ? 'number' : 'text'}
+            placeholder={`Please enter ${field}`}
+            className={errors[field] ? 'border-red-500' : ''}
+          />
+          <span style={errorStyle}>{errors[field]}</span>
+        </div>
+      ))}
 
-      <label>
-        Phone:
-        <input
-          type="text"
-          name="phone"
-          value={form.phone}
-          onChange={handleForm}
-        />
-      </label>
-      <br />
-
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={form.email}
-          onChange={handleForm}
-        />
-      </label>
-      <br />
-      
-
-      <button onClick={handleClick}>Submit</button>
-      <p style={errorStyle}>{errorMessage}</p>
-    </>
+      <Button type="button" onClick={handleClick} className="btn-primary">
+        Submit
+      </Button>
+    </form>
+  </FormProvider>
   );
 };
 
