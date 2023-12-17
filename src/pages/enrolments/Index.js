@@ -27,7 +27,7 @@ const Index = () => {
       <p>Hello from Enrolments Index</p>
       {enrolmentsList.map(enrolments => (
       
-        <Link to={`/enrolments/${enrolments.id}`} key={enrolments.id}>
+        <Link to={`/enrolment/${enrolments.id}`} key={enrolments.id}>
           <div>
             <h2>{enrolments.name}</h2>
             <h2>{enrolments.status}</h2>

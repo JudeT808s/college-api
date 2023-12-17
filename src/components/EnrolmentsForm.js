@@ -67,8 +67,6 @@ const CreateForm = ({ onSubmit }) => {
     <>
       This is the enrolments create Form
       <br />
-     
-
       <label>
         Date:
         <input

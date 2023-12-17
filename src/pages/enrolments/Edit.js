@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { set } from 'react-hook-form';
 
 const Edit = () => {
   const { id } = useParams();
-  const [courseData, setCourseData] = useState({
-    code: '',
-    description: '',
-    level: '',
-    points: '',
-    title: '',
+  const [coursesList, setCoursesList] = useState([]);
+  const [lecturersList, setLecturersList] = useState([]);
+  const [form, setForm] = useState({
+    course: `{form.course}`,
+    lecturer: `{form.lecturer}`, 
+    Status: 'Interested',
   });
 
   let token = localStorage.getItem('token');
@@ -20,16 +21,40 @@ const Edit = () => {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        setCourseData(response.data.data);
+        setForm(response.data.data);
       })
       .catch(error => {
         console.error('Error fetching course data:', error);
       });
   }, [token, id]);
+  useEffect(() => {
+    axios.get(`https://college-api.vercel.app/courses`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        setCoursesList(response.data.data);
+         console.log(response.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [token]);
 
+  useEffect(() => {
+    axios.get(`https://college-api.vercel.app/lecturers`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(response => {
+        setLecturersList(response.data.data);
+        // console.log(response.data.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [token]);
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setCourseData((prevData) => ({
+    setForm((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -42,7 +67,7 @@ const Edit = () => {
       // Make a PUT request to update the course data
       const response = await axios.put(
         `https://college-api.vercel.app/courses/${id}`,
-        courseData,
+        form,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -58,63 +83,65 @@ const Edit = () => {
   
 
   return (
-    <div>
-      <h3>Edit Course {id}</h3>
-      <br/>
-      <form onSubmit={handleSubmit}>
+    <>
+      This is the enrolments edit Form
+      <br />
       <label>
-          Title:
-          <input
-            type="text"
-            name="title"
-            value={courseData.title}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Code:
-          <input
-            type="text"
-            name="code"
-            value={courseData.code}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input
-            type="text"
-            name="description"
-            value={courseData.description}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Level:
-          <input
-            type="text"
-            name="level"
-            value={courseData.level}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          Points:
-          <input
-            type="text"
-            name="points"
-            value={courseData.points}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <button type="submit">Update Course</button>
-      </form>
-    </div>
+        Date:
+        <input
+          type="date"
+          name="date"
+          value={form.date}
+          onChange={handleChange}
+        />
+      </label>
+      <br />
+
+      <label>
+        Time:
+        <input
+          type="time"
+          name="time"
+          value={form.time}
+          onChange={handleChange}
+        />
+      </label>
+      <br />
+      <label> Course:
+      <select id="course" name="course">
+        {coursesList.map((course) => (
+          <option key={course.id} value={course.id}>
+            {course.title}
+          </option>
+        ))}
+        </select>
+      </label>
+      <br/>
+      <label> Lecturer:
+      <select id="lecturer" name="lecturer">
+        {lecturersList.map((lecturer) => (
+          <option key={lecturer.id} value={lecturer.id}>
+            {lecturer.name}
+          </option>
+        ))}
+        </select>
+      </label>
+      <br />
+      <label>
+        {/* Loop through somewhere? */}
+        Status:
+        <select id="status" name="Status" onChange={handleChange} value={form.Status}>
+          <option value="Interested">Interested</option>
+          <option value="Assigned">Assigned</option>
+          <option value="Associate">Associate</option>
+          <option value="Career_Break">Career Break</option>
+        </select>
+      </label>
+      <br/>
+
+      <button onClick={handleSubmit}>Submit</button>
+      <br />
+      </>
   );
 };
 

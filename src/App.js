@@ -18,24 +18,24 @@ import Navbar from './components/Navbar';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 
-// 
+// Enrolments
 import EnrolmentsIndex from '../src/pages/enrolments/Index';
 import EnrolmentsShow from '../src/pages/enrolments/Show';
 import EnrolmentsCreate from '../src/pages/enrolments/Create';
 import EnrolmentsEdit from '../src/pages/enrolments/Edit';
 
+// ... (imports)
+
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check if the user is authenticated on component mount
     if (localStorage.getItem('token')) {
       setAuthenticated(true);
     }
   }, []);
 
   const onAuthenticated = (auth, token) => {
-    // Handle authentication status and token storage
     setAuthenticated(auth);
 
     if (auth) {
@@ -45,47 +45,38 @@ const App = () => {
     }
   };
 
-  // Define protected routes based on authentication status
-  const protectedRoutes = authenticated ? (
+  // Define common routes for protected components
+  const protectedRoutes = (
     <>
-      <Route path="/" element={<CoursesIndex />} />
-      <Route path="/courses" element={<CoursesIndex />} />
       <Route path="/courses/create" element={<CoursesCreate onAuthenticated={onAuthenticated} />} />
       <Route path="/courses/edit/:id" element={<CoursesEdit onAuthenticated={onAuthenticated} />} />
       <Route path="/lecturers/create" element={<LecturersCreate onAuthenticated={onAuthenticated} />} />
       <Route path="/lecturers/edit/:id" element={<LecturersEdit onAuthenticated={onAuthenticated} />} />
       <Route path="/enrolments/create" element={<EnrolmentsCreate onAuthenticated={onAuthenticated} />} />
-      <Route path="/lecturers/edit/:id" element={<EnrolmentsEdit onAuthenticated={onAuthenticated} />} />
-      <Route path="/register" element={<RegisterForm onAuthenticated={onAuthenticated} />} />
-      <Route path="/login" element={<LoginForm onAuthenticated={onAuthenticated} />} />
-
-     
-    </>
-  ) : (
-    <>
-      <Route path="/register" element={<RegisterForm onAuthenticated={onAuthenticated} />} />
-      <Route path="/login" element={<LoginForm onAuthenticated={onAuthenticated} />} />
+      <Route path="/enrolment/edit/:id" element={<EnrolmentsEdit onAuthenticated={onAuthenticated} />} />
     </>
   );
 
   return (
     <Router>
-      {/* Navbar is always visible */}
       <Navbar authenticated={authenticated} onAuthenticated={onAuthenticated} />
 
-      {/* Routes for different components */}
       <Routes>
         <Route path="/" element={<Home authenticated={authenticated} onAuthenticated={onAuthenticated} />} />
+        <Route path="/courses/" element={<CoursesIndex onAuthenticated={onAuthenticated} />} />
         <Route path="/course/:id" element={<CoursesShow onAuthenticated={onAuthenticated} />} />
         <Route path="/lecturer/:id" element={<LecturersShow onAuthenticated={onAuthenticated} />} />
         <Route path="/lecturers" element={<LecturersIndex />} />
-        {protectedRoutes}
-        <Route path="/enrolments" element={<EnrolmentsIndex authenticated={authenticated} onAuthenticated={onAuthenticated} />} />
-        <Route path="/enrolments/:id" element={<EnrolmentsShow onAuthenticated={onAuthenticated} />} />
-        {protectedRoutes}
+        {authenticated && protectedRoutes}
+        <Route path="/enrolments" element={<EnrolmentsIndex  onAuthenticated={onAuthenticated} />} />
+        <Route path="/enrolment/:id" element={<EnrolmentsShow onAuthenticated={onAuthenticated} />} />
+        
+        {/* 404 Not Found */}
+        <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </Router>
   );
 };
 
 export default App;
+
