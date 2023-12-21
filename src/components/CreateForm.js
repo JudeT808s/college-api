@@ -88,7 +88,7 @@ const CreateForm = ({ onSubmit, isEdit, id }) => {
                   name={field}
                   onChange={handleFormChange}
                   value={form[field]}
-                  type={field === 'points' || 'level' ? 'number' : 'text'}
+                  type={field === 'points' || field === 'level' ? 'number' : 'text'}
                   placeholder={`Please enter ${field}`}
                   className={errors[field] ? 'border-red-500' : ''}
                 />
